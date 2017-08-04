@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.dao.mapper.MenuMapper">
+	<resultMap id="BaseResultMap" type="com.huateng.model.Menu">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="pId" property="pid" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="page" property="page" jdbcType="VARCHAR" />
+		<result column="click" property="click" jdbcType="CHAR" />
+		<result column="tip" property="tip" jdbcType="CHAR" />
+		<result column="order" property="order" jdbcType="INTEGER" />
+		<result column="create_id" property="createId" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="updater_id" property="updaterId" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<collection property="menus" javaType="java.util.List"
+			ofType="com.huateng.model.Menu">
+			<id column="tm_id" property="id" jdbcType="INTEGER" />
+			<result column="tm_pid" property="pid" jdbcType="INTEGER" />
+			<result column="tm_name" property="name" jdbcType="VARCHAR" />
+			<result column="tm_page" property="page" jdbcType="VARCHAR" />
+			<result column="tm_click" property="click" jdbcType="CHAR" />
+			<result column="tm_tip" property="tip" jdbcType="CHAR" />
+			<result column="tm_order" property="order" jdbcType="INTEGER" />
+		</collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, pId, name, page, click, tip, create_id, create_time,
+		updater_id,
+		update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_menu
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectAllMenus" resultMap="BaseResultMap">
+		SELECT
+		tm1.`id` AS id,
+		tm1.`name` AS NAME,
+		tm1.`pId` AS pId,
+		tm1.`tip` AS tip,
+		tm1.`click` AS
+		click,
+		tm1.`page` AS page
+		FROM t_menu tm1
+	</select>
+	<select id="selectAllAccordionMenus" resultMap="BaseResultMap">
+		select
+		tm.`id`,
+		tm.`name`,
+		tm.`order`,
+		tm.`pId`,
+		tm.`tip`,
+		tm.`click`,
+		tm.`page`
+		from t_menu
+		tm
+		where tm.`pId`=0
+		order by tm.`order` asc
+	</select>
+	<select id="selectChildMenus" resultMap="BaseResultMap">
+		SELECT tm2.* FROM t_menu tm1,t_menu tm2 WHERE tm1.`id`=tm2.`pId` AND
+		tm1.`name`=#{name,jdbcType=VARCHAR}
+		UNION ALL
+		SELECT tm3.* FROM t_menu tm3,(SELECT tm2.* FROM t_menu tm1,t_menu tm2 WHERE
+		tm1.`id`=tm2.`pId` AND tm1.`name`=#{name,jdbcType=VARCHAR})
+		tm4 WHERE tm3.`pId`=tm4.id
+	</select>
+	<!-- <select id="selectChildMenus" resultMap="BaseResultMap"> SELECT tm2.`id`, 
+		tm2.`name`, tm2.`order`, tm2.`pId`, tm2.`tip`, tm2.`click`, tm2.`page`, tm3.`id` 
+		AS tm_id, tm3.`name` AS tm_name, tm3.`order` AS tm_order, tm3.`pId` AS tm_pid, 
+		tm3.`tip` AS tm_tip, tm3.`page` AS tm_page, tm3.`click` AS tm_click FROM (SELECT 
+		tm.`id`, tm.`name`, tm.`order`, tm.`pId`, tm.`tip`, tm.`click`, tm.`page` 
+		FROM t_menu tm LEFT JOIN t_menu tm1 ON tm.`pId`=tm1.`id` WHERE tm1.`name`=#{name,jdbcType=VARCHAR} 
+		) tm2 LEFT JOIN t_menu tm3 ON tm2.id = tm3.`pId` ORDER BY tm2.order,tm3.`order` 
+		ASC </select> -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_menu
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.huateng.model.Menu">
+		insert into t_menu (id, pId,
+		name,
+		page, click, tip, create_id,
+		create_time, updater_id, update_time
+		)
+		values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
+		#{page,jdbcType=VARCHAR},
+		#{click,jdbcType=CHAR}, #{tip,jdbcType=CHAR},
+		#{createId,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updaterId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.huateng.model.Menu">
+		insert into t_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="pid != null">
+				pId,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="page != null">
+				page,
+			</if>
+			<if test="click != null">
+				click,
+			</if>
+			<if test="tip != null">
+				tip,
+			</if>
+			<if test="createId != null">
+				create_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updaterId != null">
+				updater_id,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="pid != null">
+				#{pid,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="page != null">
+				#{page,jdbcType=VARCHAR},
+			</if>
+			<if test="click != null">
+				#{click,jdbcType=CHAR},
+			</if>
+			<if test="tip != null">
+				#{tip,jdbcType=CHAR},
+			</if>
+			<if test="createId != null">
+				#{createId,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updaterId != null">
+				#{updaterId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.huateng.model.Menu">
+		update t_menu
+		<set>
+			<if test="pid != null">
+				pId = #{pid,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="page != null">
+				page = #{page,jdbcType=VARCHAR},
+			</if>
+			<if test="click != null">
+				click = #{click,jdbcType=CHAR},
+			</if>
+			<if test="tip != null">
+				tip = #{tip,jdbcType=CHAR},
+			</if>
+			<if test="createId != null">
+				create_id = #{createId,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updaterId != null">
+				updater_id = #{updaterId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.huateng.model.Menu">
+		update t_menu
+		set
+		pId = #{pid,jdbcType=INTEGER},
+		name = #{name,jdbcType=VARCHAR},
+		page =
+		#{page,jdbcType=VARCHAR},
+		click = #{click,jdbcType=CHAR},
+		tip =
+		#{tip,jdbcType=CHAR},
+		create_id = #{createId,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		updater_id =
+		#{updaterId,jdbcType=VARCHAR},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

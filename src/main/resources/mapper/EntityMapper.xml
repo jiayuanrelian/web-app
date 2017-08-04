@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.dao.mapper.EntityMapper">
+	<resultMap id="BaseResultMap" type="com.huateng.model.Entity">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="identify" property="identify" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="package_c" property="packageC" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+		<result column="DATE_CREATED" property="dateCreated" jdbcType="TIMESTAMP" />
+		<result column="CREATER_ID" property="createrId" jdbcType="VARCHAR" />
+		<result column="DATE_UPDATED" property="dateUpdated" jdbcType="TIMESTAMP" />
+		<result column="UPDATER_ID" property="updaterId" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, identify, name, package_c, DEL_FLAG, DATE_CREATED, CREATER_ID,
+		DATE_UPDATED,
+		UPDATER_ID
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_entity
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- 分页条件模糊查询 -->
+	<select id="selectByPage" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT te.* FROM t_entity te
+		
+		WHERE te.`DEL_FLAG`='0'
+		<if test="name!=null">
+			AND te.`name` LIKE CONCAT('%',#{name,jdbcType=VARCHAR},'%' )
+		</if>
+		ORDER BY te.`DATE_CREATED` DESC
+		LIMIT #{start,jdbcType=INTEGER},#{end,jdbcType=INTEGER}
+	</select>
+	<!-- 分页查询条数 -->
+	<select id="selectByPageCount" resultType="int">
+		SELECT count(0) FROM t_entity te
+		WHERE te.`DEL_FLAG`='0'
+		<if test="name!=null">
+			AND te.`name` LIKE CONCAT('%',#{name,jdbcType=VARCHAR},'%' )
+		</if>
+	</select>
+	<!-- 批量删除 -->
+	<update id="deleteByBath" >
+				UPDATE t_entity te 
+				<set>
+				  te.`DEL_FLAG`='1'
+				</set>
+				where te.id = #{id,jdbcType=VARCHAR}
+    </update>
+	<select id="selectByIdentify" resultType="int">
+		SELECT COUNT(0) FROM t_entity te
+		WHERE te.`DEL_FLAG`='0'
+		<if test="identify!=null">
+			AND te.`identify`=#{identify,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_entity
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.huateng.model.Entity">
+		insert into t_entity (id, identify, name,
+		package_c, DEL_FLAG, DATE_CREATED,
+		CREATER_ID, DATE_UPDATED, UPDATER_ID
+		)
+		values (#{id,jdbcType=INTEGER}, #{identify,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{packageC,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{dateCreated,jdbcType=TIMESTAMP},
+		#{createrId,jdbcType=VARCHAR}, #{dateUpdated,jdbcType=TIMESTAMP},
+		#{updaterId,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.huateng.model.Entity">
+		insert into t_entity
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="identify != null">
+				identify,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="packageC != null">
+				package_c,
+			</if>
+			<if test="delFlag != null">
+				DEL_FLAG,
+			</if>
+			<if test="dateCreated != null">
+				DATE_CREATED,
+			</if>
+			<if test="createrId != null">
+				CREATER_ID,
+			</if>
+			<if test="dateUpdated != null">
+				DATE_UPDATED,
+			</if>
+			<if test="updaterId != null">
+				UPDATER_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="identify != null">
+				#{identify,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="packageC != null">
+				#{packageC,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="dateCreated != null">
+				#{dateCreated,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createrId != null">
+				#{createrId,jdbcType=VARCHAR},
+			</if>
+			<if test="dateUpdated != null">
+				#{dateUpdated,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updaterId != null">
+				#{updaterId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.huateng.model.Entity">
+		update t_entity
+		<set>
+			<if test="identify != null">
+				identify = #{identify,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="packageC != null">
+				package_c = #{packageC,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				DEL_FLAG = #{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="dateCreated != null">
+				DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createrId != null">
+				CREATER_ID = #{createrId,jdbcType=VARCHAR},
+			</if>
+			<if test="dateUpdated != null">
+				DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updaterId != null">
+				UPDATER_ID = #{updaterId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.huateng.model.Entity">
+		update t_entity
+		set identify = #{identify,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		package_c = #{packageC,jdbcType=VARCHAR},
+		DEL_FLAG = #{delFlag,jdbcType=CHAR},
+		DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+		CREATER_ID = #{createrId,jdbcType=VARCHAR},
+		DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+		UPDATER_ID = #{updaterId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

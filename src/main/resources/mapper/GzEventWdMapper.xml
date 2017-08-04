@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.dao.mapper.GzEventWdMapper" >
+  <resultMap id="BaseResultMap" type="com.huateng.model.GzEventWd" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="TYPE_KEY" property="typeKey" jdbcType="VARCHAR" />
+    <result column="REF_EVENT_ID" property="refEventId" jdbcType="BIGINT" />
+    <result column="IS_COUNTER" property="isCounter" jdbcType="CHAR" />
+    <result column="REF_COUNTER_ID" property="refCounterId" jdbcType="BIGINT" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="DATE_CREATED" property="dateCreated" jdbcType="TIMESTAMP" />
+    <result column="CREATER_ID" property="createrId" jdbcType="VARCHAR" />
+    <result column="DATE_UPDATED" property="dateUpdated" jdbcType="TIMESTAMP" />
+    <result column="UPDATER_ID" property="updaterId" jdbcType="VARCHAR" />
+    <result column="IS_PUBLIC" property="isPublic" jdbcType="CHAR" />
+    <result column="PUBLIC_TYPE" property="publicType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CODE, NAME, STATUS, TYPE, TYPE_KEY, REF_EVENT_ID, IS_COUNTER, REF_COUNTER_ID, 
+    DEL_FLAG, DATE_CREATED, CREATER_ID, DATE_UPDATED, UPDATER_ID, IS_PUBLIC, PUBLIC_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gz_event_wd
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_gz_event_wd
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.huateng.model.GzEventWd" >
+    insert into t_gz_event_wd (ID, CODE, NAME, 
+      STATUS, TYPE, TYPE_KEY, REF_EVENT_ID, 
+      IS_COUNTER, REF_COUNTER_ID, DEL_FLAG, 
+      DATE_CREATED, CREATER_ID, DATE_UPDATED, 
+      UPDATER_ID, IS_PUBLIC, PUBLIC_TYPE
+      )
+    values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{type,jdbcType=CHAR}, #{typeKey,jdbcType=VARCHAR}, #{refEventId,jdbcType=BIGINT}, 
+      #{isCounter,jdbcType=CHAR}, #{refCounterId,jdbcType=BIGINT}, #{delFlag,jdbcType=CHAR}, 
+      #{dateCreated,jdbcType=TIMESTAMP}, #{createrId,jdbcType=VARCHAR}, #{dateUpdated,jdbcType=TIMESTAMP}, 
+      #{updaterId,jdbcType=VARCHAR}, #{isPublic,jdbcType=CHAR}, #{publicType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.huateng.model.GzEventWd" >
+    insert into t_gz_event_wd
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="typeKey != null" >
+        TYPE_KEY,
+      </if>
+      <if test="refEventId != null" >
+        REF_EVENT_ID,
+      </if>
+      <if test="isCounter != null" >
+        IS_COUNTER,
+      </if>
+      <if test="refCounterId != null" >
+        REF_COUNTER_ID,
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG,
+      </if>
+      <if test="dateCreated != null" >
+        DATE_CREATED,
+      </if>
+      <if test="createrId != null" >
+        CREATER_ID,
+      </if>
+      <if test="dateUpdated != null" >
+        DATE_UPDATED,
+      </if>
+      <if test="updaterId != null" >
+        UPDATER_ID,
+      </if>
+      <if test="isPublic != null" >
+        IS_PUBLIC,
+      </if>
+      <if test="publicType != null" >
+        PUBLIC_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="typeKey != null" >
+        #{typeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="refEventId != null" >
+        #{refEventId,jdbcType=BIGINT},
+      </if>
+      <if test="isCounter != null" >
+        #{isCounter,jdbcType=CHAR},
+      </if>
+      <if test="refCounterId != null" >
+        #{refCounterId,jdbcType=BIGINT},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="dateCreated != null" >
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrId != null" >
+        #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateUpdated != null" >
+        #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null" >
+        #{updaterId,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublic != null" >
+        #{isPublic,jdbcType=CHAR},
+      </if>
+      <if test="publicType != null" >
+        #{publicType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huateng.model.GzEventWd" >
+    update t_gz_event_wd
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="typeKey != null" >
+        TYPE_KEY = #{typeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="refEventId != null" >
+        REF_EVENT_ID = #{refEventId,jdbcType=BIGINT},
+      </if>
+      <if test="isCounter != null" >
+        IS_COUNTER = #{isCounter,jdbcType=CHAR},
+      </if>
+      <if test="refCounterId != null" >
+        REF_COUNTER_ID = #{refCounterId,jdbcType=BIGINT},
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="dateCreated != null" >
+        DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrId != null" >
+        CREATER_ID = #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateUpdated != null" >
+        DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null" >
+        UPDATER_ID = #{updaterId,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublic != null" >
+        IS_PUBLIC = #{isPublic,jdbcType=CHAR},
+      </if>
+      <if test="publicType != null" >
+        PUBLIC_TYPE = #{publicType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huateng.model.GzEventWd" >
+    update t_gz_event_wd
+    set CODE = #{code,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      TYPE = #{type,jdbcType=CHAR},
+      TYPE_KEY = #{typeKey,jdbcType=VARCHAR},
+      REF_EVENT_ID = #{refEventId,jdbcType=BIGINT},
+      IS_COUNTER = #{isCounter,jdbcType=CHAR},
+      REF_COUNTER_ID = #{refCounterId,jdbcType=BIGINT},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      CREATER_ID = #{createrId,jdbcType=VARCHAR},
+      DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{updaterId,jdbcType=VARCHAR},
+      IS_PUBLIC = #{isPublic,jdbcType=CHAR},
+      PUBLIC_TYPE = #{publicType,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

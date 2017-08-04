@@ -1,0 +1,10 @@
+[
+		{ "id":"13", "pId":"0", "name":"调度","click":false },
+		{ "id":"131", "pId":"13", "name":"查台转单","page":""},
+		{ "id":"132", "pId":"13", "name":"人工调度","page":"page_qupai_diaodu.action"},
+		{ "id":"14", "pId":"0" , "name":"营销活动管理","click":false },
+		{ "id":"141", "pId":"14", "name":"事件管理" ,"page":"gzEventController/goGzEvent.do"},
+		{ "id":"142", "pId":"14", "name":"维度管理" ,"page":"page_workflow_personaltask.action"},
+		{ "id":"143", "pId":"14", "name":"动作管理","page":"page_workflow_grouptask.action"},
+		{ "id":"144", "pId":"14", "name":"规则管理","page":"page_workflow_grouptask.action"}
+]

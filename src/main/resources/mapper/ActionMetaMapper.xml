@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.dao.mapper.ActionMetaMapper" >
+  <resultMap id="BaseResultMap" type="com.huateng.model.ActionMeta" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="METHOD_C" property="methodC" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="SCENE_ID" property="sceneId" jdbcType="INTEGER" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="DATE_CREATED" property="dateCreated" jdbcType="TIMESTAMP" />
+    <result column="CREATER_ID" property="createrId" jdbcType="VARCHAR" />
+    <result column="DATE_UPDATED" property="dateUpdated" jdbcType="TIMESTAMP" />
+    <result column="UPDATER_ID" property="updaterId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, METHOD_C, DESCRIPTION, SCENE_ID, DEL_FLAG, DATE_CREATED, CREATER_ID, DATE_UPDATED, 
+    UPDATER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_action_meta
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_action_meta
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huateng.model.ActionMeta" >
+    insert into t_action_meta (ID, METHOD_C, DESCRIPTION, 
+      SCENE_ID, DEL_FLAG, DATE_CREATED, 
+      CREATER_ID, DATE_UPDATED, UPDATER_ID
+      )
+    values (#{id,jdbcType=INTEGER}, #{methodC,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{sceneId,jdbcType=INTEGER}, #{delFlag,jdbcType=CHAR}, #{dateCreated,jdbcType=TIMESTAMP}, 
+      #{createrId,jdbcType=VARCHAR}, #{dateUpdated,jdbcType=TIMESTAMP}, #{updaterId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.huateng.model.ActionMeta" >
+    insert into t_action_meta
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="methodC != null" >
+        METHOD_C,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="sceneId != null" >
+        SCENE_ID,
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG,
+      </if>
+      <if test="dateCreated != null" >
+        DATE_CREATED,
+      </if>
+      <if test="createrId != null" >
+        CREATER_ID,
+      </if>
+      <if test="dateUpdated != null" >
+        DATE_UPDATED,
+      </if>
+      <if test="updaterId != null" >
+        UPDATER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="methodC != null" >
+        #{methodC,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneId != null" >
+        #{sceneId,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="dateCreated != null" >
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrId != null" >
+        #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateUpdated != null" >
+        #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null" >
+        #{updaterId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huateng.model.ActionMeta" >
+    update t_action_meta
+    <set >
+      <if test="methodC != null" >
+        METHOD_C = #{methodC,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneId != null" >
+        SCENE_ID = #{sceneId,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="dateCreated != null" >
+        DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrId != null" >
+        CREATER_ID = #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateUpdated != null" >
+        DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null" >
+        UPDATER_ID = #{updaterId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huateng.model.ActionMeta" >
+    update t_action_meta
+    set METHOD_C = #{methodC,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      SCENE_ID = #{sceneId,jdbcType=INTEGER},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      CREATER_ID = #{createrId,jdbcType=VARCHAR},
+      DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{updaterId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

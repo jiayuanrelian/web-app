@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.dao.mapper.GzInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.huateng.model.GzInfo" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="BRIEF_INFO" property="briefInfo" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="VERSION" property="version" jdbcType="INTEGER" />
+    <result column="REF_EVENT_ID" property="refEventId" jdbcType="BIGINT" />
+    <result column="REF_ZCD_ID" property="refZcdId" jdbcType="BIGINT" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="POINT_VALIDATE" property="pointValidate" jdbcType="TIMESTAMP" />
+    <result column="DATE_CREATED" property="dateCreated" jdbcType="TIMESTAMP" />
+    <result column="CREATER_ID" property="createrId" jdbcType="VARCHAR" />
+    <result column="DATE_UPDATED" property="dateUpdated" jdbcType="TIMESTAMP" />
+    <result column="UPDATER_ID" property="updaterId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CODE, NAME, TYPE, BRIEF_INFO, STATUS, VERSION, REF_EVENT_ID, REF_ZCD_ID, DEL_FLAG, 
+    POINT_VALIDATE, DATE_CREATED, CREATER_ID, DATE_UPDATED, UPDATER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gz_info
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_gz_info
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.huateng.model.GzInfo" >
+    insert into t_gz_info (ID, CODE, NAME, 
+      TYPE, BRIEF_INFO, STATUS, 
+      VERSION, REF_EVENT_ID, REF_ZCD_ID, 
+      DEL_FLAG, POINT_VALIDATE, DATE_CREATED, 
+      CREATER_ID, DATE_UPDATED, UPDATER_ID
+      )
+    values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=CHAR}, #{briefInfo,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{version,jdbcType=INTEGER}, #{refEventId,jdbcType=BIGINT}, #{refZcdId,jdbcType=BIGINT}, 
+      #{delFlag,jdbcType=CHAR}, #{pointValidate,jdbcType=TIMESTAMP}, #{dateCreated,jdbcType=TIMESTAMP}, 
+      #{createrId,jdbcType=VARCHAR}, #{dateUpdated,jdbcType=TIMESTAMP}, #{updaterId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.huateng.model.GzInfo" >
+    insert into t_gz_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="briefInfo != null" >
+        BRIEF_INFO,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="refEventId != null" >
+        REF_EVENT_ID,
+      </if>
+      <if test="refZcdId != null" >
+        REF_ZCD_ID,
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG,
+      </if>
+      <if test="pointValidate != null" >
+        POINT_VALIDATE,
+      </if>
+      <if test="dateCreated != null" >
+        DATE_CREATED,
+      </if>
+      <if test="createrId != null" >
+        CREATER_ID,
+      </if>
+      <if test="dateUpdated != null" >
+        DATE_UPDATED,
+      </if>
+      <if test="updaterId != null" >
+        UPDATER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="briefInfo != null" >
+        #{briefInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="refEventId != null" >
+        #{refEventId,jdbcType=BIGINT},
+      </if>
+      <if test="refZcdId != null" >
+        #{refZcdId,jdbcType=BIGINT},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="pointValidate != null" >
+        #{pointValidate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateCreated != null" >
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrId != null" >
+        #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateUpdated != null" >
+        #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null" >
+        #{updaterId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huateng.model.GzInfo" >
+    update t_gz_info
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="briefInfo != null" >
+        BRIEF_INFO = #{briefInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="refEventId != null" >
+        REF_EVENT_ID = #{refEventId,jdbcType=BIGINT},
+      </if>
+      <if test="refZcdId != null" >
+        REF_ZCD_ID = #{refZcdId,jdbcType=BIGINT},
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="pointValidate != null" >
+        POINT_VALIDATE = #{pointValidate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateCreated != null" >
+        DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrId != null" >
+        CREATER_ID = #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateUpdated != null" >
+        DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null" >
+        UPDATER_ID = #{updaterId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huateng.model.GzInfo" >
+    update t_gz_info
+    set CODE = #{code,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=CHAR},
+      BRIEF_INFO = #{briefInfo,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      VERSION = #{version,jdbcType=INTEGER},
+      REF_EVENT_ID = #{refEventId,jdbcType=BIGINT},
+      REF_ZCD_ID = #{refZcdId,jdbcType=BIGINT},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      POINT_VALIDATE = #{pointValidate,jdbcType=TIMESTAMP},
+      DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      CREATER_ID = #{createrId,jdbcType=VARCHAR},
+      DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{updaterId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

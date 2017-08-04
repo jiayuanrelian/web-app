@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.dao.mapper.GzActionMapper" >
+  <resultMap id="BaseResultMap" type="com.huateng.model.GzAction" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="REF_CHILD_PRODUCT_ID" property="refChildProductId" jdbcType="BIGINT" />
+    <result column="REF_GZ_INFO_ID" property="refGzInfoId" jdbcType="BIGINT" />
+    <result column="REF_WD_ID" property="refWdId" jdbcType="BIGINT" />
+    <result column="POINT_RATE" property="pointRate" jdbcType="INTEGER" />
+    <result column="POINT_BASE" property="pointBase" jdbcType="INTEGER" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="DATE_CREATED" property="dateCreated" jdbcType="TIMESTAMP" />
+    <result column="CREATER_ID" property="createrId" jdbcType="VARCHAR" />
+    <result column="DATE_UPDATED" property="dateUpdated" jdbcType="TIMESTAMP" />
+    <result column="UPDATER_ID" property="updaterId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, REF_CHILD_PRODUCT_ID, REF_GZ_INFO_ID, REF_WD_ID, POINT_RATE, POINT_BASE, REASON, 
+    STATUS, DEL_FLAG, DATE_CREATED, CREATER_ID, DATE_UPDATED, UPDATER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gz_action
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_gz_action
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.huateng.model.GzAction" >
+    insert into t_gz_action (ID, REF_CHILD_PRODUCT_ID, REF_GZ_INFO_ID, 
+      REF_WD_ID, POINT_RATE, POINT_BASE, 
+      REASON, STATUS, DEL_FLAG, 
+      DATE_CREATED, CREATER_ID, DATE_UPDATED, 
+      UPDATER_ID)
+    values (#{id,jdbcType=BIGINT}, #{refChildProductId,jdbcType=BIGINT}, #{refGzInfoId,jdbcType=BIGINT}, 
+      #{refWdId,jdbcType=BIGINT}, #{pointRate,jdbcType=INTEGER}, #{pointBase,jdbcType=INTEGER}, 
+      #{reason,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, 
+      #{dateCreated,jdbcType=TIMESTAMP}, #{createrId,jdbcType=VARCHAR}, #{dateUpdated,jdbcType=TIMESTAMP}, 
+      #{updaterId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huateng.model.GzAction" >
+    insert into t_gz_action
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="refChildProductId != null" >
+        REF_CHILD_PRODUCT_ID,
+      </if>
+      <if test="refGzInfoId != null" >
+        REF_GZ_INFO_ID,
+      </if>
+      <if test="refWdId != null" >
+        REF_WD_ID,
+      </if>
+      <if test="pointRate != null" >
+        POINT_RATE,
+      </if>
+      <if test="pointBase != null" >
+        POINT_BASE,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG,
+      </if>
+      <if test="dateCreated != null" >
+        DATE_CREATED,
+      </if>
+      <if test="createrId != null" >
+        CREATER_ID,
+      </if>
+      <if test="dateUpdated != null" >
+        DATE_UPDATED,
+      </if>
+      <if test="updaterId != null" >
+        UPDATER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="refChildProductId != null" >
+        #{refChildProductId,jdbcType=BIGINT},
+      </if>
+      <if test="refGzInfoId != null" >
+        #{refGzInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="refWdId != null" >
+        #{refWdId,jdbcType=BIGINT},
+      </if>
+      <if test="pointRate != null" >
+        #{pointRate,jdbcType=INTEGER},
+      </if>
+      <if test="pointBase != null" >
+        #{pointBase,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="dateCreated != null" >
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrId != null" >
+        #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateUpdated != null" >
+        #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null" >
+        #{updaterId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huateng.model.GzAction" >
+    update t_gz_action
+    <set >
+      <if test="refChildProductId != null" >
+        REF_CHILD_PRODUCT_ID = #{refChildProductId,jdbcType=BIGINT},
+      </if>
+      <if test="refGzInfoId != null" >
+        REF_GZ_INFO_ID = #{refGzInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="refWdId != null" >
+        REF_WD_ID = #{refWdId,jdbcType=BIGINT},
+      </if>
+      <if test="pointRate != null" >
+        POINT_RATE = #{pointRate,jdbcType=INTEGER},
+      </if>
+      <if test="pointBase != null" >
+        POINT_BASE = #{pointBase,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="dateCreated != null" >
+        DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrId != null" >
+        CREATER_ID = #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateUpdated != null" >
+        DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null" >
+        UPDATER_ID = #{updaterId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huateng.model.GzAction" >
+    update t_gz_action
+    set REF_CHILD_PRODUCT_ID = #{refChildProductId,jdbcType=BIGINT},
+      REF_GZ_INFO_ID = #{refGzInfoId,jdbcType=BIGINT},
+      REF_WD_ID = #{refWdId,jdbcType=BIGINT},
+      POINT_RATE = #{pointRate,jdbcType=INTEGER},
+      POINT_BASE = #{pointBase,jdbcType=INTEGER},
+      REASON = #{reason,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      CREATER_ID = #{createrId,jdbcType=VARCHAR},
+      DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{updaterId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

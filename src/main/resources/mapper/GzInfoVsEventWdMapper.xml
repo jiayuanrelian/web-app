@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.dao.mapper.GzInfoVsEventWdMapper" >
+  <resultMap id="BaseResultMap" type="com.huateng.model.GzInfoVsEventWd" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="INFO_ID" property="infoId" jdbcType="BIGINT" />
+    <result column="EVENT_WD_ID" property="eventWdId" jdbcType="BIGINT" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPE_VALUE" property="opeValue" jdbcType="VARCHAR" />
+    <result column="SORT_NUM" property="sortNum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, INFO_ID, EVENT_WD_ID, OPERATOR, OPE_VALUE, SORT_NUM
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gz_info_vs_event_wd
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_gz_info_vs_event_wd
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.huateng.model.GzInfoVsEventWd" >
+    insert into t_gz_info_vs_event_wd (ID, INFO_ID, EVENT_WD_ID, 
+      OPERATOR, OPE_VALUE, SORT_NUM
+      )
+    values (#{id,jdbcType=BIGINT}, #{infoId,jdbcType=BIGINT}, #{eventWdId,jdbcType=BIGINT}, 
+      #{operator,jdbcType=VARCHAR}, #{opeValue,jdbcType=VARCHAR}, #{sortNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.huateng.model.GzInfoVsEventWd" >
+    insert into t_gz_info_vs_event_wd
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="infoId != null" >
+        INFO_ID,
+      </if>
+      <if test="eventWdId != null" >
+        EVENT_WD_ID,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="opeValue != null" >
+        OPE_VALUE,
+      </if>
+      <if test="sortNum != null" >
+        SORT_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="infoId != null" >
+        #{infoId,jdbcType=BIGINT},
+      </if>
+      <if test="eventWdId != null" >
+        #{eventWdId,jdbcType=BIGINT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="opeValue != null" >
+        #{opeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNum != null" >
+        #{sortNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huateng.model.GzInfoVsEventWd" >
+    update t_gz_info_vs_event_wd
+    <set >
+      <if test="infoId != null" >
+        INFO_ID = #{infoId,jdbcType=BIGINT},
+      </if>
+      <if test="eventWdId != null" >
+        EVENT_WD_ID = #{eventWdId,jdbcType=BIGINT},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="opeValue != null" >
+        OPE_VALUE = #{opeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNum != null" >
+        SORT_NUM = #{sortNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huateng.model.GzInfoVsEventWd" >
+    update t_gz_info_vs_event_wd
+    set INFO_ID = #{infoId,jdbcType=BIGINT},
+      EVENT_WD_ID = #{eventWdId,jdbcType=BIGINT},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      OPE_VALUE = #{opeValue,jdbcType=VARCHAR},
+      SORT_NUM = #{sortNum,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

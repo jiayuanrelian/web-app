@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.huateng.dao.mapper.EntityItemMapper" >
+  <resultMap id="BaseResultMap" type="com.huateng.model.EntityItem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="field" property="field" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="DATE_CREATED" property="dateCreated" jdbcType="TIMESTAMP" />
+    <result column="CREATER_ID" property="createrId" jdbcType="VARCHAR" />
+    <result column="DATE_UPDATED" property="dateUpdated" jdbcType="TIMESTAMP" />
+    <result column="UPDATER_ID" property="updaterId" jdbcType="VARCHAR" />
+    <association property="entity" javaType="com.huateng.model.Entity">
+    	<id column="te_id" property="id" jdbcType="INTEGER" />
+    	<result column="te_name" property="name" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, field, name, description, type_id, DEL_FLAG, DATE_CREATED, CREATER_ID, DATE_UPDATED, 
+    UPDATER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_entity_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_entity_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huateng.model.EntityItem" >
+    insert into t_entity_item (id, field, name, 
+      description, type_id, DEL_FLAG, 
+      DATE_CREATED, CREATER_ID, DATE_UPDATED, 
+      UPDATER_ID)
+    values (#{id,jdbcType=INTEGER}, #{field,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, #{delFlag,jdbcType=CHAR}, 
+      #{dateCreated,jdbcType=TIMESTAMP}, #{createrId,jdbcType=VARCHAR}, #{dateUpdated,jdbcType=TIMESTAMP}, 
+      #{updaterId,jdbcType=VARCHAR})
+  </insert>
+  <!-- 分页查询模糊查询 -->
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  		SELECT 
+  			tei.`id` AS id,
+			tei.`name` AS NAME,
+			tei.`field` AS FIELD,
+			tei.`DATE_CREATED` AS DATE_CREATED,
+			tei.`DATE_UPDATED` AS DATE_UPDATED,
+			te.`id` AS te_id,
+			te.`name` AS te_name
+  		FROM t_entity_item tei,t_entity te
+		WHERE tei.`type_id`=te.`id` AND tei.`DEL_FLAG`='0'
+		<if test="field!=null">
+			AND te.`field` LIKE CONCAT('%',#{field,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="entityId!=null">
+			AND te.`id`=#{entityId,jdbcType=VARCHAR}
+		</if>
+		ORDER BY tei.`DATE_CREATED` DESC
+		LIMIT #{start,jdbcType=INTEGER},#{end,jdbcType=INTEGER}
+  </select>
+  <!-- 查询是否有标示重复未删除的记录 -->
+  <select id="selectByIdentify" resultType="int">
+  		SELECT COUNT(0) FROM  t_entity_item tei
+  		WHERE tei.`DEL_FLAG`='0'
+		AND tei.`field` =#{field,jdbcType=VARCHAR}
+		AND tei.`type_id` =#{typeId,jdbcType=INTEGER}
+  </select>
+  <!-- 删除实体属性记录 -->
+  <update id="deleteEntityItem" >
+  		UPDATE t_entity_item tei
+		SET tei.`DEL_FLAG`='1'
+        WHERE tei.`id`=#{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 插入实体属性 -->
+  <insert id="insertSelective" parameterType="com.huateng.model.EntityItem" >
+    insert into t_entity_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="field != null" >
+        field,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG,
+      </if>
+      <if test="dateCreated != null" >
+        DATE_CREATED,
+      </if>
+      <if test="createrId != null" >
+        CREATER_ID,
+      </if>
+      <if test="dateUpdated != null" >
+        DATE_UPDATED,
+      </if>
+      <if test="updaterId != null" >
+        UPDATER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="field != null" >
+        #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="dateCreated != null" >
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrId != null" >
+        #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateUpdated != null" >
+        #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null" >
+        #{updaterId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huateng.model.EntityItem" >
+    update t_entity_item
+    <set >
+      <if test="field != null" >
+        field = #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="dateCreated != null" >
+        DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrId != null" >
+        CREATER_ID = #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="dateUpdated != null" >
+        DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null" >
+        UPDATER_ID = #{updaterId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huateng.model.EntityItem" >
+    update t_entity_item
+    set field = #{field,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=INTEGER},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      CREATER_ID = #{createrId,jdbcType=VARCHAR},
+      DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{updaterId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
