@@ -9,6 +9,7 @@
 	<groupId>web</groupId>
 	<artifactId>web-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+<!--测试冲突-->	
 	<properties>
 		<!-- spring版本号 -->
 		<spring.version>4.1.9.RELEASE</spring.version>
