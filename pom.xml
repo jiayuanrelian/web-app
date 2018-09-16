@@ -11,8 +11,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 <!--测试冲突-->	
 	<properties>
-	<!--哈哈123-->
-		<!-- spring版本号 -->
+	<!--哈哈123456-->		<!-- spring版本号 -->
 		<spring.version>4.1.9.RELEASE</spring.version>
 		<!-- mybatis版本号 -->
 		<mybatis.version>3.2.6</mybatis.version>
